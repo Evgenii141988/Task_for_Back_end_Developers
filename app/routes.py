@@ -1,5 +1,7 @@
-from app import app, PyMongo, request, generate_password_hash, jsonify, ObjectId, users_collection
-from flask import render_template
+from app import app, users_collection
+from flask import render_template, request, jsonify
+from bson.objectid import ObjectId
+from werkzeug.security import generate_password_hash
 
 
 @app.route('/')
@@ -56,6 +58,3 @@ def get_user(user_id):
             return jsonify({'error': 'User not found'}), 404
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-
-
-
