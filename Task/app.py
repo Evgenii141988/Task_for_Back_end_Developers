@@ -51,6 +51,7 @@ def get_users():
         return jsonify({'error': str(e)}), 500
 
 
+
 @app.route('/user/<user_id>', methods=['GET'])
 def get_user(user_id):
     try:
