@@ -1,9 +1,4 @@
-from flask import Flask, request, jsonify
-from flask_pymongo import PyMongo
-from bson.objectid import ObjectId
-from werkzeug.security import generate_password_hash
-
-app = Flask(__name__)
+from app import app, PyMongo, request, generate_password_hash, jsonify, ObjectId
 
 app.config['MONGO_URI'] = 'mongodb://localhost:27017/flask_mongo_db'
 mongo = PyMongo(app)
@@ -51,7 +46,6 @@ def get_users():
         return jsonify({'error': str(e)}), 500
 
 
-
 @app.route('/user/<user_id>', methods=['GET'])
 def get_user(user_id):
     try:
@@ -65,5 +59,4 @@ def get_user(user_id):
         return jsonify({'error': str(e)}), 500
 
 
-if __name__ == '__main__':
-    app.run(debug=True)
+
