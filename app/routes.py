@@ -1,14 +1,13 @@
-from app import app, PyMongo, request, generate_password_hash, jsonify, ObjectId
-
-app.config['MONGO_URI'] = 'mongodb://localhost:27017/flask_mongo_db'
-mongo = PyMongo(app)
-
-users_collection = mongo.db.users
+from app import app, PyMongo, request, generate_password_hash, jsonify, ObjectId, users_collection
+from flask import render_template
 
 
 @app.route('/')
+@app.route('/home')
 def home():
-    return "Welcome to Flask MongoDB server"
+    user = {'username': 'admin', 'password': '<PASSWORD>'}
+    users = list(users_collection.find())
+    return render_template('index.html', user=user, title='Home', users=users)
 
 
 @app.route('/users', methods=['POST'])
