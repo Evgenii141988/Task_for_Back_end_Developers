@@ -3,6 +3,8 @@ from flask import render_template, request, jsonify
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash
 
+from app.forms import LoginForm
+
 
 @app.route('/')
 @app.route('/home')
@@ -58,3 +60,9 @@ def get_user(user_id):
             return jsonify({'error': 'User not found'}), 404
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
+
+@app.route('login', methods=['GET', 'POST'])
+def login_user():
+    form = LoginForm()
+    return render_template('login.html', form=form, title='Sign In')
